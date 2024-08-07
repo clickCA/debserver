@@ -1,0 +1,2 @@
+NGROK_AUTHTOKEN=$(cat /home/click/.config/ngrok/ngrok.yml | grep authtoken | cut -d ' ' -f 2)
+sudo docker run --restart unless-stopped -it -e NGROK_AUTHTOKEN=$NGROK_AUTHTOKEN ngrok/ngrok:latest http http://192.168.1.43:2283/ --domain=normal-deeply-amoeba.ngrok-free.app
