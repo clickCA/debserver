@@ -1,5 +1,9 @@
 
 ## Making HTTPS 
+
+### วิธีตั้ง server ที่บ้าน
+https://medium.com/@mongkonsrisin/%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B8%95%E0%B8%B1%E0%B9%89%E0%B8%87-web-server-%E0%B9%84%E0%B8%A7%E0%B9%89%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%9A%E0%B9%89%E0%B8%B2%E0%B8%99-b6bfcd1655b9
+
 ### Problem ip router ไม่ตรง
 ![ip on the internet](image-2.png)
 ![ip on the router](image-3.png)
