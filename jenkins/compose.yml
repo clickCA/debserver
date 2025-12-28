@@ -1,0 +1,57 @@
+version: '3.8'
+
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    privileged: true
+    user: root
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_docker_certs:/certs/client
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+      - DOCKER_HOST=tcp://docker:2376
+      - DOCKER_CERT_PATH=/certs/client
+      - DOCKER_TLS_VERIFY=1
+    networks:
+      - jenkins
+    restart: unless-stopped
+
+  docker:
+    image: docker:dind
+    container_name: jenkins-docker
+    privileged: true
+    volumes:
+      - jenkins_docker_certs:/certs/client
+      - jenkins_home:/var/jenkins_home
+    environment:
+      - DOCKER_TLS_CERTDIR=/certs
+    networks:
+      - jenkins
+    restart: unless-stopped
+
+  node:
+    image: node:lts
+    container_name: jenkins-node-agent
+    command: tail -f /dev/null
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins
+    restart: unless-stopped
+
+networks:
+  jenkins:
+    driver: bridge
+
+volumes:
+  jenkins_home:
+    driver: local
+  jenkins_docker_certs:
+    driver: local
